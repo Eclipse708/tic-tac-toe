@@ -1,8 +1,8 @@
 function Gameboard() {
-  const board = Array(9).fill(null);
+  const board = Array(9).fill("");
   
   const updateBoard = (position, marker) => {
-    if (board[position] == null) {
+    if (board[position] == "") {
       board.splice(position , 1, marker);
     }
   }
@@ -11,8 +11,8 @@ function Gameboard() {
 
   const resetBoard = () => {
     board.forEach((cell,i) => {
-      if (cell !== null) {
-        board.splice(i, 1, null);
+      if (cell !== "") {
+        board.splice(i, 1, "");
       }
     });
   }
@@ -78,13 +78,22 @@ return {getCurrentPlayer, makeMove, getLastPlayer}
 function GameController() {
 let winningCountP1 = 0;
 let winningCountP2 = 0;
+let gameOver;
 const player = Player();
 const gameboard = Gameboard();
-const reset = gameboard.resetBoard;
 
 const getWinningCountP1 = () => winningCountP1;
 const getWinningCountP2 = () => winningCountP2;
 
+// const start = () => {
+//   gameOver = false;
+// }
+
+const checkForTIe = () => {
+  const board = gameboard.getBoard();
+  let isBoardFull = board.every(position => position !== "");
+  console.log("its a tie");
+}
 const checkForWin = () => {
   const winningCombinations = [
     [0,1,2],
@@ -97,56 +106,55 @@ const checkForWin = () => {
     [2,4,6]
   ];
   const board = gameboard.getBoard();
-  let isBoardFull = board.every(position => position !== null);
   let winningPlayer = player.getLastPlayer();
-  
-  if (isBoardFull) {
-    console.log("its a tie");
-  } else {
+
     for (let i = 0; i < winningCombinations.length; i++) {
-      if((board[winningCombinations[i][0]] !== null && 
-        board[winningCombinations[i][1]] !== null && 
-        board[winningCombinations[i][2]] !== null)
+      if((board[winningCombinations[i][0]] !== "" && 
+        board[winningCombinations[i][1]] !== "" && 
+        board[winningCombinations[i][2]] !== "")
       &&
       (board[winningCombinations[i][0]] ===  board[winningCombinations[i][1]] && 
         board[winningCombinations[i][1]] === board[winningCombinations[i][2]] )) {
       console.log(winningPlayer.name + " won");
       if (winningPlayer.name == "Player one") {
         winningCountP1++;
-        reset();
+        gameboard.resetBoard();
         
         if (winningCountP1 === 3) {
-          gameOver();
+          setGameOver();
           winningCountP1 = 0;
         }
         
       } else {
         winningCountP2++;
-        reset();
+        gameboard.resetBoard();
         
         if (winningCountP2 === 3) {
-          gameOver();
+          setGameOver();
           winningCountP2 = 0;
         }
       }
        }
   }
- }   
+  
+  checkForTie();
 }
 
- const gameOver = () => {
+ const setGameOver = () => {
   console.log("GAME OVER");
+   gameOver = true;
   p1Count = getWinningCountP1();
   p2Count = getWinningCountP2();
   
   if (p1Count === 3) {
     console.log("Player 1 won");
     p1Count = 0;
-    reset();
+    document.getElementByClass('turn').textContent = player.name + ' wins';
+     gameboard.resetBoard();
   } else if (p2Count === 3) {
     console.log("Player 2 won");
     p2Count = 0;
-    reset();
+    gameboard.resetBoard();
   }
   
 }
@@ -177,8 +185,8 @@ const updateScreen = () => {
     console.log(cell);
     const cellBtn = document.createElement('button');
     cellBtn.classList.add('cellBtn');
-    
-    cellBtn.textContent = cell.getValue();
+    console.log(board);
+    cellBtn.textContent = cell;
     boardDiv.appendChild(cellBtn);
   });
 }
