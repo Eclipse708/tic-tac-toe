@@ -1,20 +1,14 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.cellBtn {
+  width: 30px;
+  height: 30px;
 }
 
-.cellBtn {
-    width: 30px;
-    height: 30px;
-  }
-  
-  .board {
-    width: 300px;
-    height: 300px;
-  }
-  /* .container {
-    display: flex;
-    flex-basis: 1;
-  
-  } */
+.board {
+  width: 300px;
+  height: 300px;
+}
+/* .container {
+  display: flex;
+  flex-basis: 1;
+
+} */

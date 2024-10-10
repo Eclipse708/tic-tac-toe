@@ -10,6 +10,9 @@ function Gameboard() {
   const getBoard = () => board;
 
   const resetBoard = () => {
+    document.querySelectorAll('.cellBtn').forEach(cell => {
+      cell.textContent = "";
+    });
     board.forEach((cell,i) => {
       if (cell !== "") {
         board.splice(i, 1, "");
@@ -118,6 +121,7 @@ const checkForWin = () => {
       console.log(winningPlayer.name + " won");
       if (winningPlayer.name == "Player one") {
         winningCountP1++;
+        document.getElementByClass('turn').textContent = player.name + ' wins';
         gameboard.resetBoard();
         
         if (winningCountP1 === 3) {
@@ -154,6 +158,7 @@ const checkForWin = () => {
   } else if (p2Count === 3) {
     console.log("Player 2 won");
     p2Count = 0;
+    ocument.getElementByClass('turn').textContent = player.name + ' wins';
     gameboard.resetBoard();
   }
   
@@ -172,6 +177,8 @@ const game = Gameboard();
 const player = Player();
 const playerTurnDiv = document.querySelector('.turn');
 const boardDiv = document.querySelector('.board');
+const startBtn = document.querySelector('.start-btn');
+const resetBtn = document.querySelector('.reset-btn');
 
 const updateScreen = () => {
   boardDiv.textContent = "";
@@ -188,10 +195,26 @@ const updateScreen = () => {
     console.log(board);
     cellBtn.textContent = cell;
     boardDiv.appendChild(cellBtn);
+    
+    cellBtn.addEventListener('click', () => {
+    console.log('clicked');
+      console.log(player.marker);
+      cellBtn.textContent = player.marker;
+  });
+
   });
 }
 
-updateScreen();
+
+startBtn.addEventListener('click', function() {
+  updateScreen();
+});
+
+resetBtn.addEventListener('click', () => {
+  game.resetBoard();
+  updateScreen();
+})
 }
+
 
 ScreenController();
