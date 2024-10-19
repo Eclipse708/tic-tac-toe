@@ -26,7 +26,7 @@ playerTwoName = "Player two"
 const players = [
 {
   name: playerOneName,
-  marker: "x",
+  marker: "X",
 },
 {
   name: playerTwoName,
