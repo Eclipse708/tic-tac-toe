@@ -1,14 +1,60 @@
-.cellBtn {
-  width: 30px;
-  height: 30px;
-}
-
-.board {
-  width: 300px;
-  height: 300px;
-}
-/* .container {
+* {
+  box-sizing: border-box;
+  }
+  
+  body {
+  font-family: Arial, sans-serif;
   display: flex;
-  flex-basis: 1;
-
-} */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  }
+  
+  .container {
+  text-align: center;
+  }
+  
+  .board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 10px;
+  margin-top: 20px;
+  }
+  
+  .board div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  background-color: #f0f0f0;
+  border: 2px solid #333;
+  font-size: 2rem;
+  }
+  
+  .start-btn, .reset-btn {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  }
+  
+  .score {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+  }
+  
+  .score p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+  }
+  
+  .P1-count, .P2-count {
+    font-size: 1.5rem;
+    margin-top: 10px;
+  }
